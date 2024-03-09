@@ -21,7 +21,7 @@
 5. ### Steps to run Spring Boot Project:
 	1. Right Click -> maven -> Force Update
 	2. To clean, Run as -> Maven Clean
-				 Project -> Clean...[*If getting ClassNotFoundException Clean Project*]
+				 Project -> Clean... [*If getting ClassNotFoundException, Clean the Project*]
 	3. Run as -> Spring Boot Project
 
 6. 	Default port 8080
@@ -34,11 +34,11 @@
 
 8. **Project Structure** 
 
-	* src/main/java/com/test/demo -> Application.java(`main` method)(`@SpringBootApplication`) 
-								  -> /controller/controllers.java
-								  -> /service/services.java
-								  -> /dao/daos.java
-								  -> /entities/entities.java
+	* src/main/java/com/test/demo -> Application.java(`main` method)(`@SpringBootApplication`)  
+								  -> /controller/controllers.java  
+								  -> /service/services.java  
+								  -> /dao/daos.java  
+								  -> /entities/entities.java  
 			
 	* src/main/resources 		  -> application.properties 
 		* contains non-Java resources such as property files, XML configuration files, static resources 
