@@ -2,9 +2,9 @@
 
 1. Spring Boot Supports specific java versions: 
 
-	SPRING BOOT: `3.x.x` => JAVA 17 or 21
-	SPRING BOOT: `2.x.x` => JAVA 8 or 11 or 15 
-    ONLINE FOOD ORDERING AND DELIVERY SYSTEM: Spring Boot Version: `2.7.13`
+	SPRING BOOT: `3.x.x` => JAVA 17 or 21  
+	SPRING BOOT: `2.x.x` => JAVA 8 or 11 or 15     
+    ONLINE FOOD ORDERING AND DELIVERY SYSTEM: Spring Boot Version: `2.7.13`  
 
 2. A version with the suffix "SNAPSHOT" indicates that it is a development version or a version under active development.
 
