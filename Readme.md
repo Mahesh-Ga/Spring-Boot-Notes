@@ -20,9 +20,8 @@
 
 5. ### Steps to run Spring Boot Project:
 	1. Right Click -> maven -> Force Update
-	*If getting ClassNotFoundException Clean Project*
 	2. To clean, Run as -> Maven Clean
-				 Project -> Clean...	
+				 Project -> Clean...[*If getting ClassNotFoundException Clean Project*]
 	3. Run as -> Spring Boot Project
 
 6. 	Default port 8080
