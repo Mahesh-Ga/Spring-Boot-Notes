@@ -1,6 +1,6 @@
 ## Spring Boot Notes
 
-1. Spring Boot Supports specific java versions: 
+1. Spring Boot supports specific java versions: 
 
 	SPRING BOOT: `3.x.x` => JAVA 17 or 21  
 	SPRING BOOT: `2.x.x` => JAVA 8 or 11 or 15     
@@ -65,3 +65,19 @@
 		* Project Object Model.(POM)
 		* manages dependencies for your project. 
 
+	* `mvnw` file (Maven Wrapper)
+		* It's a shell script or batch script that facilitates the use of Maven in a project without requiring a global installation of Maven on the system
+		* If maven is not found globally, it automatically downloads the necessary Maven binaries for the project to a hidden directory within the project structure (usually `.mvn/wrapper`)
+
+	* `mvnw.cmd` file
+		* The `mvnw` file is accompanied by a `mvnw.cmd` file for *Windows* systems, providing the same functionality
+
+
+9.  **Artifact**
+	An artifact typically refers to any tangible output produced during the software development process. This can include source code, documentation, diagrams, executable files, configuration files, and other materials created as part of the SDLC.
+
+10. **Artifact ID & Group ID**
+	1. **Group ID:** used to identify the organization or group that the project belongs to.
+	2. **Artifact ID:** used to identify the specific project  within the group. It's usually the name of your project.
+
+				
