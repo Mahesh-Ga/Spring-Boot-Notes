@@ -17,9 +17,10 @@
 	2. Spring Data JPA
 	3. MySQL Driver
 
-   *If getting ClassNotFoundException Clean Project*
+
 5. ### Steps to run Spring Boot Project:
 	1. Right Click -> maven -> Force Update
+	*If getting ClassNotFoundException Clean Project*
 	2. To clean, Run as -> Maven Clean
 				 Project -> Clean...	
 	3. Run as -> Spring Boot Project
