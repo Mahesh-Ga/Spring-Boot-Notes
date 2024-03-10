@@ -80,4 +80,88 @@
 	1. **Group ID:** used to identify the organization or group that the project belongs to.
 	2. **Artifact ID:** used to identify the specific project  within the group. It's usually the name of your project.
 
-				
+
+* **Application context == IoC Container(Spring Container)** where all your application's beans, configurations, and infrastructure are managed and organized
+
+
+## Lifecyle of Spring Boot Application: 
+
+1. **Application Startup:** 	
+	* Spring Boot initializes the application context.
+	* Components are scanned and registered.
+	* Auto-configuration takes place, where Spring Boot automatically configures beans based on dependencies, classpath,  and other factors.	
+
+2. **Application Initialization:**
+	* Beans defined in the application context are initialized, dependencies are injected, and any necessary setup is performed.
+	* Application properties and configuration files are read and processed.	
+
+3. **Application Configuration:**
+	* Configuration properties and beans are wired together.
+	* External configurations (e.g., from application.properties or application.yml) are loaded.
+	* Conditional beans are created based on configuration conditions.			
+
+4. **Running the Application:**
+	* Spring Boot starts the embedded server (like Tomcat, Jetty, or Undertow).
+	* HTTP requests are accepted and processed by the server.
+	* DispatcherServlet (if using Spring MVC) routes requests to appropriate controllers.	
+
+
+## Internals:
+**Starter POM:**
+When you include a starter POM in your project, Maven will automatically pull in all the required dependencies specified by that starter POM, along with their transitive dependencies
+e.g.
+```xml   
+	<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+	</dependency>
+```
+
+* Starter pom's jars -> META-INF -> spring.factories (Enable or disable) Based on `@Conditional and @Configuration`
+E.g.In spring.factories, class JPARepository -> `@ConditiononBean(DataSource.class)` means  if DataSource is loaded then only enable JpaRepository.
+
+* `@SprinBootApplication` = `@Configuration` + `@EnableAutoConfiguration` + `@ComponentScan`  
+
+`@Configuration` -> Behave that class as bean  
+`@EnableAutoConfiguration` -> Enable few Component based on condition
+`@ComponentScan` -> scans all packages and registered beans in container
+
+## Main method: 
+
+* In a typical deployment of a `WAR file` in a servlet container like Tomcat, the main method is not directly utilized during runtime. Instead, the servlet container handles the initialization and execution of the application. Therefore, you don't necessarily need a main method in your Spring Boot application when deploying it as a `WAR file` in the `webapps` directory of a servlet container.
+
+* However, Spring Boot applications are typically designed to be `executable JARs`, and the main method serves as the entry point for running the application standalone. When you package your Spring Boot application as a WAR file, you're essentially embedding it into a servlet container, and the servlet container's lifecycle takes precedence over the `main `method.
+
+**Executable JAR deployment:*** If you're deploying your Spring Boot application as an executable JAR, you definitely need a main method as it's the entry point for running the application standalone.
+
+**WAR deployment:** When deploying as a WAR file in a servlet container, the main method is not directly used during runtime. The servlet container's initialization and execution take over, and your application will be started and managed by the servlet container.
+
+Main method calls -> 
+```java
+SpringApplication.run(SpringBootInternalApplication.class,args)
+```
+### Tasks Performed by SpringApplication.run()
+
+1. **Create and Configure ApplicationContext**: The `run()` method creates an ApplicationContext(IoC Container), the central interface for providing configuration information to the Spring IoC container and obtaining bean instances. It's configured based on annotations, XML configuration, and other project settings.
+
+2. **Register Application Startup Listeners**: Spring Boot automatically registers startup listeners, allowing custom actions when the application starts. These listeners are notified once the application context is fully initialized but before the application starts running.
+
+3. **Load Spring Boot Properties**: Spring Boot loads properties from various sources like `application.properties`, `application.yml`, environment variables, and command-line arguments, making them available throughout the application.
+
+4. **Scan for Components and Auto-Configuration**: Spring Boot scans the classpath for components annotated with Spring stereotypes (`@Component`, `@Service`, `@Repository`, etc.), and performs auto-configuration based on dependencies present in the classpath, configuring beans and services based on sensible defaults.
+
+5. **Run Embedded Web Server (if applicable)**: If the application includes web-related dependencies (e.g., Spring MVC), Spring Boot starts an embedded web server (like Tomcat, Jetty, or Undertow) automatically, configuring and starting it to make the application accessible over HTTP.
+
+6. **Trigger Spring Boot Application Events**: Spring Boot emits various events during startup, such as `ApplicationStartingEvent`, `ApplicationEnvironmentPreparedEvent`, `ApplicationContextInitializedEvent`, etc., which can be intercepted and processed by custom listeners if needed.
+
+7. **Run Application**: Once initialized and configured, the application is started, and control flow is handed over to the Spring framework to manage the application's lifecycle.
+
+8. **Display Startup Banner**: By default, Spring Boot displays a startup banner indicating the Spring Boot version and additional information. This banner can be customized or disabled as needed.
+
+The `SpringApplication.run()` method is responsible for initializing the Spring application context, configuring dependencies, starting the embedded web server (if applicable), and kicking off the application's lifecycle.
