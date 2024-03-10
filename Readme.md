@@ -165,3 +165,62 @@ SpringApplication.run(SpringBootInternalApplication.class,args)
 8. **Display Startup Banner**: By default, Spring Boot displays a startup banner indicating the Spring Boot version and additional information. This banner can be customized or disabled as needed.
 
 The `SpringApplication.run()` method is responsible for initializing the Spring application context, configuring dependencies, starting the embedded web server (if applicable), and kicking off the application's lifecycle.
+
+## Startup Listeners: 
+allow you to execute custom logic when the application starts up. They are notified by the Spring framework once the application context is fully initialized but before the application begins processing requests.
+
+* **Registration:** Startup listeners can be registered within your Spring Boot application context. They can be implemented as Spring components and annotated with @Component, or you can register them programmatically.
+
+* **Execution Order:** You can control the order of execution of startup listeners by setting their priority or order. Spring provides mechanisms such as implementing the Ordered interface or using the @Order annotation to specify the execution order.
+
+* **Events:** `ApplicationStartingEvent`, `ApplicationEnvironmentPreparedEvent`, `ApplicationContextInitializedEvent`
+
+* **Access to Application Context:** Startup listeners have access to the fully initialized application context, allowing them to interact with Spring-managed beans and resources within the application.
+
+e.g
+```java
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyStartupListener implements ApplicationListener<ApplicationStartedEvent> {
+
+    @Override
+    public void onApplicationEvent(ApplicationStartedEvent event) {
+        // Custom logic to execute when the application starts
+        System.out.println("Application started. Performing custom initialization...");
+        // You can access application context and beans here if needed
+    }
+}
+```
+
+## Types of Events: 
+1. **ApplicationStartingEvent:** 
+* This event is the earliest event in the Spring Boot application lifecycle.
+* It is fired just before the application context is created.
+* At this stage, the application environment has not been set up yet.
+
+2. **ApplicationEnvironmentPreparedEvent:**
+* This event is fired when the Spring Environment is prepared but the application context is not yet created. 
+* It provides an opportunity to modify the environment before the application context is created.
+
+3. **ApplicationContextInitializedEvent:**
+* This event indicates that the application context has been initialized, but it is not yet refreshed.
+* At this point, the application context contains the bean definitions but is not fully configured.
+
+4. **ApplicationPreparedEvent:**
+* This event is fired just before the application context is refreshed but after the bean definitions have been loaded.
+* It provides an opportunity to perform additional configuration or customization before the application context is fully prepared.
+
+5. **ApplicationStartedEvent:**
+* This event signals that the application context has been fully refreshed and the application has started.
+* At this stage, the application is ready to process requests.
+
+6. **ApplicationReadyEvent:**
+* This event is fired when the application is ready to service requests.
+* It indicates that the application is fully initialized and is now fully available to handle incoming requests.
+
+7. **ApplicationFailedEvent:**
+* This event is fired if the application fails to start up due to any exception.
+* It provides information about the cause of the failure and can be used for error handling or logging purposes.
